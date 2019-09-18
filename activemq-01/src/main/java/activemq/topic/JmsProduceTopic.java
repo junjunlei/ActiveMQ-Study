@@ -1,17 +1,18 @@
-package activemq;
+package activemq.topic;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
 
 /**
+ * TOPIC主题
  *简单的生产者
  * @author Jerry
  * @create 2019-09-17 14:15
  */
-public class JmsProduce {
+public class JmsProduceTopic {
     private static  final String ACTIVEMQ_URL="tcp://59.110.164.184:61616";
-    private static  final String QUEUE_NAME="队列01";
+    private static  final String TOPIC_NAME="主题01";
     public static void main(String[] args) throws JMSException {
         //1.创建连接工厂,按照指定的url地址,采用默认用户名和密码
         ActiveMQConnectionFactory factory=new ActiveMQConnectionFactory(ACTIVEMQ_URL);
@@ -21,9 +22,9 @@ public class JmsProduce {
         //3.闯将会话session  事务/签收
         Session session=connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
         //4创建目的地   队列or主题topic
-        Queue queue = session.createQueue(QUEUE_NAME);
+        Topic topic = session.createTopic(TOPIC_NAME);
         //5.创建消息生产者
-        MessageProducer messageProducer = session.createProducer(queue);
+        MessageProducer messageProducer = session.createProducer(topic);
         int n=6;
         for(int i=1;i<=n;i++){
         //6.创建消息
@@ -37,11 +38,5 @@ public class JmsProduce {
         connection.close();
         System.out.println("消息成功发送到MQ");
     }
-    /**
-     * 消费者三大消费情况：
-     *        1.先生产         只启动1号消费者。 1号消费者能消息
-     *        2.先生产         先启动1号再启动2号消费者，问题：2号消费者能消费吗？  ：不能
-     *        3.先启动2个消费者，再生产6条消息，请问，如何消费？
-     *             轮询，一人3条
-     */
+
 }
