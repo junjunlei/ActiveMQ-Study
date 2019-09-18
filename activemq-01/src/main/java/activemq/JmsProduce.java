@@ -24,14 +24,24 @@ public class JmsProduce {
         Queue queue = session.createQueue(QUEUE_NAME);
         //5.创建消息生产者
         MessageProducer messageProducer = session.createProducer(queue);
+        int n=6;
+        for(int i=1;i<=n;i++){
         //6.创建消息
-        TextMessage textMessage = session.createTextMessage("生产一条消息");
+        TextMessage textMessage = session.createTextMessage("生产第"+i+"条消息");
         //7.消息生产者发送到mq
         messageProducer.send(textMessage);
+        }
         //8.关闭资源
         messageProducer.close();
         session.close();
         connection.close();
         System.out.println("消息成功发送到MQ");
     }
+    /**
+     * 消费者三大消费情况：
+     *        1.先生产         只启动1号消费者。 1号消费者能消息
+     *        2.先生产         先启动1号再启动2号消费者，问题：2号消费者能消费吗？  ：不能
+     *        3.先启动2个消费者，再生产6条消息，请问，如何消费？
+     *             轮询，一人3条
+     */
 }

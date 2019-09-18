@@ -5,7 +5,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import javax.jms.*;
 
 /**
- * 简单的消费者
+ * 简单的消费者---同步阻塞方式消费消息
  * @author Jerry
  * @create 2019-09-17 14:59
  */
@@ -24,7 +24,7 @@ public class JmsConsumer01 {
         Queue queue = session.createQueue(QUEUE_NAME);
         //5.创建消费者
         MessageConsumer messageConsumer = session.createConsumer(queue);
-        //
+        System.out.println("我是1号消费者");
         while(true){
             //receive 注意时间
             TextMessage textMessage = (TextMessage) messageConsumer.receive(4000L);
