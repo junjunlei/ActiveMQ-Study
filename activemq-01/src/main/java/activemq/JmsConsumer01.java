@@ -5,11 +5,12 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import javax.jms.*;
 
 /**
+ * 简单的消费者
  * @author Jerry
  * @create 2019-09-17 14:59
  */
-public class JmsConsumer {
-    private static  final String ACTIVEMQ_URL="tcp://服务器地址:61616";
+public class JmsConsumer01 {
+    private static  final String ACTIVEMQ_URL="tcp://59.110.164.184:61616";
     private static  final String QUEUE_NAME="队列01";
     public static void main(String[] args) throws JMSException {
         //1.创建连接工厂,按照指定的url地址,采用默认用户名和密码
@@ -23,6 +24,7 @@ public class JmsConsumer {
         Queue queue = session.createQueue(QUEUE_NAME);
         //5.创建消费者
         MessageConsumer messageConsumer = session.createConsumer(queue);
+        //
         while(true){
             //receive 注意时间
             TextMessage textMessage = (TextMessage) messageConsumer.receive(4000L);

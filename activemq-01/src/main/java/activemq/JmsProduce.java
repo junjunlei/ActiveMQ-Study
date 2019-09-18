@@ -5,7 +5,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import javax.jms.*;
 
 /**
- *
+ *简单的生产者
  * @author Jerry
  * @create 2019-09-17 14:15
  */
